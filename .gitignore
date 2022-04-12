@@ -35,4 +35,9 @@
 config/database.yml
 config/secrets.yml
 
+docker-compose.yml
 docker-compose-production.yml
+
+# Ignore server cert
+/config/privkey.pem
+/config/fullchain.pem
