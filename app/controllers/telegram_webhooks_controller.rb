@@ -20,8 +20,12 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
         respond_with :message, text: t('.format_bad_badge')
         return
       end
-      name = sections[2..]
-      respond_with :message, text: "You responded with badge, name: #{badge_id}, #{name}"
+      name = sections[2..].join(' ')
+      if User.create(telegram_user_id: from['id'], telegram_chat_id: chat['id'], name: name, badge_id: badge_id)
+        respond_with :message, text: t('.registration_complete', badge_number: badge_id, name: name)
+      else
+        respond_with :message, text: t('registration_failed')
+      end
     end
   end
 
