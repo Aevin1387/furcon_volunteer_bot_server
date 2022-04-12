@@ -9,7 +9,9 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
       respond_with :message, text: t('.already_registered')
     else
-      respond_with :message, text: "You responded with: #{payload['text']}"
+      raw_message = payload['text']
+      _, badge_id, name = raw_message.split(' ')
+      respond_with :message, text: "You responded with badge, name: #{badge_id}, #{name}"
     end
   end
 
