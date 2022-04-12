@@ -58,7 +58,7 @@ en:
       already_registered: "You are already registered!"
       format: "Registration must be submitted in format: /register ${badge_number} ${name}"
       format_bad_badge: "Bad badge format. Registration must be submitted in format: /register ${badge_number} ${name}"
-      registration_complete: "Registration completed with badge: ${badge_number}, name: ${name}"
+      registration_complete: "Registration completed with badge: %{badge_number}, name: %{name}"
       registration_failed: "Registration failed due to an unknown error. Please contact an administrator and try again later."
     start_shift:
       please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
