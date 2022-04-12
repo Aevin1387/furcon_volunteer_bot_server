@@ -54,5 +54,5 @@ en:
         /on_shift - List those currently on shift, and for how long
         /all_hours - **ADMIN ONLY** List hours for all volunteers
     start:
-      content: 'Hello! Currently testing. From: %{from.as_json} Chat: %{chat.as_json' 
+      content: "Hello! Currently testing. From: %{from} Chat: %{chat}"
     
