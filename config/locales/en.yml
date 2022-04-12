@@ -56,6 +56,9 @@ en:
         /all_shifts_detailed - **ADMIN ONLY** List detailed shift information for all volunteers
     register:
       already_registered: "You are already registered!"
+      format: "Registration must be submitted in format: /register ${badge_number} ${name}"
+      format_bad_badge: "Bad badge format. Registration must be submitted in format: /register ${badge_number} ${name}"
+      registration_complete: "Registration completed with badge: ${badge_number}, name: ${name}"
     start_shift:
       please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
     end_shift:

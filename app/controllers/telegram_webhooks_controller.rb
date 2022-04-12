@@ -10,7 +10,17 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       respond_with :message, text: t('.already_registered')
     else
       raw_message = payload['text']
-      _, badge_id, name = raw_message.split(' ')
+      sections = raw_message.split(' ')
+      if sections.length < 3
+        respond_with :message, text: t('.format')
+        return
+      end
+      badge_id = Integer(sections[1], exception: false)
+      unless badge_id
+        respond_with :message, text: t('.format_bad_badge')
+        return
+      end
+      name = sections[2..]
       respond_with :message, text: "You responded with badge, name: #{badge_id}, #{name}"
     end
   end
