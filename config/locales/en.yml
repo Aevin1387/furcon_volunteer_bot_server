@@ -38,7 +38,7 @@ en:
         Available cmds:
         /start - Greeting.
         /help - This help message
-        /register - Register with the bot
+        /register - Register with the bot, format: /register ${badge_number} ${name}
         /start_shift - Start a volunteer shift
         /end_shift - End your shift
         /list_shifts - List shifts that you've run
@@ -47,12 +47,23 @@ en:
         Available cmds:
         /start - Greeting.
         /help - This help message
-        /register - Register with the bot
+        /register - Register with the bot, format: /register ${badge_number} ${name}
         /start_shift - Start a volunteer shift
         /end_shift - End your shift
         /list_shifts - List shifts that you've run
         /on_shift - List those currently on shift, and for how long
         /all_hours - **ADMIN ONLY** List hours for all volunteers
+        /all_shifts_detailed - **ADMIN ONLY** List detailed shift information for all volunteers
+    register:
+      already_registered: "You are already registered!"
+    start_shift:
+      please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
+    end_shift:
+      please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
+    all_hours:
+      not_admin: "This command is for admins only"
+    all_shifts_detailed:
+      not_admin: "This command is for admins only"
     start:
       content: "Hello! Currently testing. From: %{from} Chat: %{chat}"
     
