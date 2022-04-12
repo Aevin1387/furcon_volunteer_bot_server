@@ -5,11 +5,11 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     respond_with :message, text: t('.content', from: from.as_json, chat: chat.as_json)
   end
 
-  def register!(text = nil, *)
+  def register!(*)
     if User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
       respond_with :message, text: t('.already_registered')
     else
-      respond_with :message, text: "You responded with: #{text}"
+      respond_with :message, text: "You responded with: #{payload['text']}"
     end
   end
 
