@@ -1,0 +1,13 @@
+init_config:
+
+instances:
+  ## @param host - string - required
+  ## The hostname to connect to.
+  ## NOTE: Even if the server name is "localhost", the agent connects to
+  ## PostgreSQL using TCP/IP, unless you also provide a value for the sock key.
+  #
+  - host: db
+    port: 5432
+    username: datadog
+    password: "<FILL_IN>"
+    database: "volunteers_bot_production"

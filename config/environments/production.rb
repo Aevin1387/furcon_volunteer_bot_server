@@ -79,4 +79,15 @@ Rails.application.configure do
   # Configure session store for telegram bot.
   config.telegram_updates_controller.session_store = :file_store,
     Rails.root.join('tmp', 'session_store')
+
+  # Configure Lograge
+  config.lograge.enabled = true
+  config.lograge.base_controller_class = 'ActionController::API'
+  config.lograge.formatter = Lograge::Formatters::Json.new
+  config.lograge.custom_options = lambda do |event|
+    exceptions = %w(controller action format id)
+    {
+     params: event.payload[:params].except(*exceptions)
+    }
+  end
 end
