@@ -58,7 +58,8 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       reply_with :message, text: t('.please_register')
       return
     end
-    unless existing_shift = Shift.where(user_id: user.id, end_time: nil).first
+    existing_shift = Shift.where(user_id: user.id, end_time: nil).first
+    unless existing_shift
       reply_with :message, text: t('.no_shift')
       return
     end
