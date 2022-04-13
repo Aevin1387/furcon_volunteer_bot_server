@@ -95,7 +95,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   def all_hours!(*)
   end
 
-  def all_shifts_detailed(*)
+  def all_shifts_detailed!(*)
     unless current_user = User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
       reply_with :message, text: t('.please_register')
       return
