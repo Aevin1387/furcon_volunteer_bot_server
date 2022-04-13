@@ -73,6 +73,18 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def on_shift!(*)
+    shifts = Shift.where(user: User.where(telegram_chat_id: chat['id']), end_time: nil)
+    if shifts.length > 0
+      on_shift_results = ["Currently on shift:"]
+      shifts.each do |shift|
+        on_shift_time = Time.at(shift.start_time).strftime('%m/%d %H:%M')
+        on_shift_results.push("#{shift.user.name} since #{on_shift_time}")
+      end
+
+      reply_with :message, text: on_shift_results.join("\n")
+    else
+      reply_with :message, text: "No one on shift."
+    end
   end
 
   def all_hours!(*)
