@@ -102,6 +102,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
     unless current_user.admin
       reply_with :message, text: t('.not_admin')
+      return
     end
     users = User.where(telegram_chat_id: chat['id'])
     shift_str = ["Finished shifts:"]
