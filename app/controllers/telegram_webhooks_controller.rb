@@ -73,6 +73,10 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def on_shift!(*)
+    unless user = User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
+      reply_with :message, text: t('.please_register')
+      return
+    end
     shifts = Shift.where(user: User.where(telegram_chat_id: chat['id']), end_time: nil)
     if shifts.length > 0
       on_shift_results = ["Currently on shift:"]
@@ -92,5 +96,32 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def all_shifts_detailed(*)
+    unless current_user = User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
+      reply_with :message, text: t('.please_register')
+      return
+    end
+    unless current_user.admin
+      reply_with :message, text: t('.not_admin')
+    end
+    users = User.where(telegram_chat_id: chat['id'])
+    shift_str = ["Finished shifts:"]
+
+    users.each do |user|
+      shifts = Shift.where.not(end_time: nil).where(user: user)
+      shift_str.push("#{user.name} (#{user.badge_number}):")
+      shifts.each do |shift|
+        start_time_str = shift.start_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
+        end_time_str = shift.end_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
+        length = TimeDifference.between(shift.start_time, shift.end_time).humanize
+        shift_str.push("\t#{start_time_str} to #{end_time_str} (#{length})")
+      end
+    end
+
+
+    if shift_str.length == 1
+      reply_with :message, text: "No shifts recorded"
+      return
+    end
+    reply_with :message, text: shift_str.join("\n")
   end
 end
