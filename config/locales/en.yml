@@ -67,7 +67,7 @@ en:
     end_shift:
       please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
       no_shift: "You do not have a currently running shift"
-      shift_ended: "Your shift has ended. Shift length: ${shift_length}"
+      shift_ended: "Your shift has ended. Shift length: %{shift_length}"
     all_hours:
       not_admin: "This command is for admins only"
     all_shifts_detailed:
