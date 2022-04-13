@@ -109,7 +109,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
 
     users.each do |user|
       shifts = Shift.where.not(end_time: nil).where(user: user)
-      shift_str.push("#{user.name} (#{user.badge_number}):")
+      shift_str.push("#{user.name} (#{user.badge_number}):") if shifts.length > 0
       shifts.each do |shift|
         start_time_str = shift.start_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
         end_time_str = shift.end_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
