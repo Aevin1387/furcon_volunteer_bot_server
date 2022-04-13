@@ -10,3 +10,14 @@ Rails.application.configure do
     }
   end
 end
+
+app = Rails.application
+if app.config.lograge.enabled
+  ActiveSupport::LogSubscriber.log_subscribers.each do |subscriber|
+    case subscriber
+    when ActionController::LogSubscriber
+      Lograge.unsubscribe('updates_controller.bot.telegram', subscriber)
+    end
+  end
+  Lograge::RequestLogSubscriber.attach_to 'updates_controller.bot.telegram'
+end
