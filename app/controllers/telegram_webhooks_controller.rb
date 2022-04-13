@@ -47,7 +47,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       reply_with :message, text: t('existing_shift')
       return
     end
-    shift = Shift.create(user: user, start_time: Time.now, chat_id: chat['id'])
+    shift = Shift.create(user: user, start_time: Time.now)
     logger.info "Sending message #{user.name} has started a shift"
     reply_with :message, text: t('shift_started')
   end
