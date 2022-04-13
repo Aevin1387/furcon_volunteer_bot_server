@@ -77,7 +77,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     if shifts.length > 0
       on_shift_results = ["Currently on shift:"]
       shifts.each do |shift|
-        on_shift_time = Time.at(shift.start_time).strftime('%m/%d %H:%M')
+        on_shift_time = shift.start_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
         on_shift_results.push("#{shift.user.name} since #{on_shift_time}")
       end
 
