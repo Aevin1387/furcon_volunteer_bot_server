@@ -65,7 +65,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     end
 
     existing_shift.update(end_time: Time.now)
-    shift_length = TimeDifference.between(shift.start_time, shift.end_time).humanize
+    shift_length = TimeDifference.between(existing_shift.start_time, existing_shift.end_time).humanize
     reply_with :message, text: t('.shift_ended', shift_length: shift_length)
   end
 
