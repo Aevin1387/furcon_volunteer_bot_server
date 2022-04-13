@@ -1,7 +1,7 @@
 Rails.application.configure do
   # Configure Lograge
   config.lograge.enabled = true
-  config.lograge.base_controller_class = ['ActionController::API', 'Telegram::Bot::UpdatesController']
+  config.lograge.base_controller_class = ['ActionController::API', 'AbstractController::Base']
   config.lograge.formatter = Lograge::Formatters::Json.new
   config.lograge.custom_options = lambda do |event|
     exceptions = %w(controller action format id)
