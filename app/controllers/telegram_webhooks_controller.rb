@@ -70,6 +70,23 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def list_shifts!(*)
+    logger.info "Running list_shifts"
+    unless user = User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
+      reply_with :message, text: t('.please_register')
+      return
+    end
+    existing_shifts = Shift.where(user_id: user.id).not(end_time: nil)
+    if existing_shifts.length == 0
+      repy_with :message, text: t('.no_shifts')
+      return
+    end
+    shifts_message = ["Your shifts:"]
+    existing_shifts.each do |shift|
+      start_time_str = shift.start_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
+      end_time_str = shift.end_time.in_time_zone("Central Time (US & Canada)").strftime('%m/%d %H:%M')
+      shift_length = TimeDifference.between(shift.start_time, shift.end_time).humanize
+      shifts_message.push("#{start_time_str} - #{end_time_str} (#{shift_length})")
+    end
   end
 
   def on_shift!(*)
