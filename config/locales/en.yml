@@ -78,4 +78,4 @@ en:
       please_register: "Please register by messaging with format: /register ${badge_number} ${name}"
       no_shifts: "You have not completed any shifts"
     start:
-      content: "Hello! Currently testing. From: %{from} Chat: %{chat}"
+      content: "Hello! Please register with /register ${badge_number} ${name}. For more options, use /help."
