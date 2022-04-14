@@ -131,7 +131,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       end
       hours_str.push("\t#{user.name} (#{user.badge_number}): #{SecondsHumanize.new(total_shift_length).humanize}")
     end
-    reply_with :message, hours_str.join("\n")
+    reply_with :message, text: hours_str.join("\n")
   end
 
   def all_shifts_detailed!(*)
