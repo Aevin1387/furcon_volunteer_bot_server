@@ -126,6 +126,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
     users.each do |user|
       total_shift_length = 0.0
       shifts = Shift.where.not(end_time: nil).where(user: user)
+      next if shifts.length == 0
       shifts.each do |shift|
         total_shift_length = total_shift_length + (shift.end_time - shift.start_time).abs
       end
