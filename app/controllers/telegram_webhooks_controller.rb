@@ -111,6 +111,25 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
   end
 
   def all_hours!(*)
+    unless current_user = User.find_by(telegram_user_id: from['id'], telegram_chat_id: chat['id'])
+      reply_with :message, text: t('.please_register')
+      return
+    end
+    unless current_user.admin
+      reply_with :message, text: t('.not_admin')
+      return
+    end
+    users = User.where(telegram_chat_id: chat['id'])
+    hours_str = ["Volunteer Hours:"]
+    users.each do |user|
+      total_shift_length = 0.0
+      shifts = Shift.where.not(end_time: nil).where(user: user)
+      shifts.each do |shift|
+        total_shift_length = total_shift_length + (shift.end_time - shift.start_time).abs
+      end
+      hours_str.push("\t#{user.name} (#{user.badge_number}): #{SecondsHumanizeHelper.new(total_shift_length).humanize}")
+    end
+    reply_with :message, hours_str.join("\n")
   end
 
   def all_shifts_detailed!(*)
