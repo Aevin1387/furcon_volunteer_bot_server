@@ -1,4 +1,4 @@
-class SecondsHumanizeHelper
+class SecondsHumanize
 
   TIME_COMPONENTS = [:years, :months, :weeks, :days, :hours, :minutes, :seconds]
 

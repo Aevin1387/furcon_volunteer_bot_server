@@ -1,3 +1,5 @@
+require 'seconds_humanize'
+
 class TelegramWebhooksController < Telegram::Bot::UpdatesController
   include Telegram::Bot::UpdatesController::MessageContext
 
@@ -127,7 +129,7 @@ class TelegramWebhooksController < Telegram::Bot::UpdatesController
       shifts.each do |shift|
         total_shift_length = total_shift_length + (shift.end_time - shift.start_time).abs
       end
-      hours_str.push("\t#{user.name} (#{user.badge_number}): #{SecondsHumanizeHelper.new(total_shift_length).humanize}")
+      hours_str.push("\t#{user.name} (#{user.badge_number}): #{SecondsHumanize.new(total_shift_length).humanize}")
     end
     reply_with :message, hours_str.join("\n")
   end
